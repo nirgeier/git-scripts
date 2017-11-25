@@ -1,0 +1,11 @@
+#!/bin/bash
+for (( filenumber = 1; filenumber <= 1000 ; filenumber++ )); 
+do
+    rm random1.txt
+    &>/dev/null
+    echo -en "Some new random text: $RANDOM" >> random1.txt
+    git add random1.txt
+    git commit -m"A random change of $RANDOM"
+done
+echo
+

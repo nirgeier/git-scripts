@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+# Output colors
+red='\033[0;31m';
+green='\033[0;32m';
+yellow='\033[0;33m';
+default='\033[0;m';
+
+clear
+rm -rf ~/workspace/tmp/bootstrap
+cd ~/workspace/tmp
+
+echo -e $green'------------------------------'
+echo -e $green'Checking out bootstrap project'$default
+echo -e $green'------------------------------'
+git clone git@github.com:twbs/bootstrap.git
+
+cd bootstrap/
+echo -e $yellow'---------------------------------------------------------------'$default
+echo -e $yellow'executing: git subtree split --prefix=grunt/ -b bootstrap-grunt'$default
+echo -e $yellow'---------------------------------------------------------------'$default
+
+git subtree split --prefix=grunt -b bootstrap-grunt
+
+echo -e $green'-----------------------------------'$default
+echo -e $green'Checking out bootstrap-grunt branch'$default
+echo -e $green'-----------------------------------'$default
+git checkout bootstrap-grunt
+
+echo -e $red'-----------------------------------'$default
+echo -e $yellow'Listing splitted branch'$default
+
+ls -la
+echo -e $red'-----------------------------------'$default

@@ -1,0 +1,38 @@
+#!/bin/bash
+echo
+echo -en "\e[0;36mHow many files to generate: [3]:\e[0;33m"
+read count
+if [ -z "$count" ];
+then
+    count=3
+fi
+typeset -i count
+if [ "$count" -lt 1 ];
+then
+    echo "Please set number greater then 0"
+    exit
+fi
+
+
+echo -en "\e[0;36mType the file name that you want to use: [random]:\e[0;33m"
+read filenamebase
+if [ -z "$filenamebase" ]; 
+then 
+    filenamebase='random'
+fi
+
+echo -en "\e[0;36mType the file extention that you want to use: [txt]:\e[0;33m"
+read filenameextension
+if [ -z "$filenameextension" ];   
+then 
+    filenameextension='txt'
+fi
+
+
+for (( filenumber = 1; filenumber <= $count ; filenumber++ )); 
+do
+    echo "Some new random text: $RANDOM" >> $filenamebase$filenumber.$filenameextension
+    git add $filenamebase$filenumber.$filenameextension
+    git commit -m"A random change of $RANDOM to $filenamebase$filenumber.$filenameextension" 
+done
+echo
