@@ -1,0 +1,7 @@
+###
+### Those lines should be added to the 
+### .git/config file in case of external script
+###
+[filter "cleanLocalhost"]
+	clean   = /path/to/clean
+	smudge  = /path/to/smudge
