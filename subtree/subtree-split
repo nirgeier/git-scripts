@@ -4,7 +4,7 @@
 # Output colors
 red='\033[0;31m';
 green='\033[0;32m';
-yellow='\033[0;33m';
+YELLOW='\033[0;33m';
 default='\033[0;m';
 
 clear
@@ -17,9 +17,9 @@ echo -e $green'------------------------------'
 git clone git@github.com:twbs/bootstrap.git
 
 cd bootstrap/
-echo -e $yellow'---------------------------------------------------------------'$default
-echo -e $yellow'executing: git subtree split --prefix=grunt/ -b bootstrap-grunt'$default
-echo -e $yellow'---------------------------------------------------------------'$default
+echo -e $YELLOW'---------------------------------------------------------------'$default
+echo -e $YELLOW'executing: git subtree split --prefix=grunt/ -b bootstrap-grunt'$default
+echo -e $YELLOW'---------------------------------------------------------------'$default
 
 git subtree split --prefix=grunt -b bootstrap-grunt
 
@@ -29,7 +29,7 @@ echo -e $green'-----------------------------------'$default
 git checkout bootstrap-grunt
 
 echo -e $red'-----------------------------------'$default
-echo -e $yellow'Listing splitted branch'$default
+echo -e $YELLOW'Listing splitted branch'$default
 
 ls -la
 echo -e $red'-----------------------------------'$default

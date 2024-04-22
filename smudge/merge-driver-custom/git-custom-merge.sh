@@ -15,11 +15,11 @@ rm -rf      /tmp/demo-smudge-merge-custom
 mkdir -p    /tmp/demo-smudge-merge-custom
 cd          /tmp/demo-smudge-merge-custom
 
-echo -e "${Cyan}* Creating demo repository${Color_Off}"
+echo -e "${CYAN}* Creating demo repository${NO_COLOR}"
 git init  --quiet
 git remote add origin git@github.com:nirgeier/demo-git-merge-driver-custom.git
 
-echo -e "${Cyan}* Adding the custom driver to the .gitconfig${Color_Off}"
+echo -e "${CYAN}* Adding the custom driver to the .gitconfig${NO_COLOR}"
 cat << EOF >> .git/config
 ###
 ### The driver property contains the command that 
@@ -40,54 +40,54 @@ cat << EOF >> .git/config
 	driver = ${DRIVER_SCRIPT} %O %A %B
 EOF
 
-echo -e "Content of ${Yellow}.git/config${Color_Off}"
+echo -e "Content of ${YELLOW}.git/config${NO_COLOR}"
 echo -e "------------------------------------------------"
 cat .git/config
 echo -e "------------------------------------------------"
 
-echo -e "${Cyan}* Adding the custom driver to the .gitattributes${Color_Off}"
+echo -e "${CYAN}* Adding the custom driver to the .gitattributes${NO_COLOR}"
 echo "*.txt merge=${DRIVER_NAME}" > .gitattributes
-echo -e "Content of ${Yellow}.gitattributes${Color_Off}"
+echo -e "Content of ${YELLOW}.gitattributes${NO_COLOR}"
 echo -e "------------------------------------------------"
 cat .gitattributes
 echo -e "------------------------------------------------"
 
-echo -e "${Cyan}* Commiting changes${Color_Off}"
+echo -e "${CYAN}* Commiting changes${NO_COLOR}"
 git add .
 git commit -m"Initial Commit" --quiet
 ## Get the current branch name
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 git push --set-upstream origin ${BRANCH_NAME} -f --quiet
 
-echo -e "${Cyan}* Creating the demo branches${Color_Off}"
-echo -e "${Green}\t${BRANCH_NAME}${Color_Off}"
-echo -e "${Green}\tdemo-branch-1${Color_Off}"
+echo -e "${CYAN}* Creating the demo branches${NO_COLOR}"
+echo -e "${GREEN}\t${BRANCH_NAME}${NO_COLOR}"
+echo -e "${GREEN}\tdemo-branch-1${NO_COLOR}"
 git branch demo-branch-1
-echo -e "${Green}\tdemo-branch-2${Color_Off}"
+echo -e "${GREEN}\tdemo-branch-2${NO_COLOR}"
 git branch demo-branch-2
 
 ### -----------------------------------------------------------------
 ### Build demo-branch-1
-echo -e "${Cyan}* Creating content in demo demo-branch-1${Color_Off}"
+echo -e "${CYAN}* Creating content in demo demo-branch-1${NO_COLOR}"
 git checkout demo-branch-1
 
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 echo $(git rev-parse --abbrev-ref HEAD) > demo-file.txt
-echo -e "${Cyan}* Commiting changes to ${BRANCH_NAME}${Color_Off}"
+echo -e "${CYAN}* Commiting changes to ${BRANCH_NAME}${NO_COLOR}"
 git add .
 git commit -m"Commit in: ${BRANCH_NAME}" --quiet
 git push --set-upstream origin ${BRANCH_NAME} -f --quiet
 
 ### -----------------------------------------------------------------
 ### Build demo-branch-2
-echo -e "${Cyan}* Creating content in demo demo-branch-2${Color_Off}"
+echo -e "${CYAN}* Creating content in demo demo-branch-2${NO_COLOR}"
 git checkout demo-branch-2
 
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 echo $(git rev-parse --abbrev-ref HEAD) > demo-file.txt
-echo -e "${Cyan}* Commiting changes to ${BRANCH_NAME}${Color_Off}"
+echo -e "${CYAN}* Commiting changes to ${BRANCH_NAME}${NO_COLOR}"
 git add .
 git commit -m"Commit in: ${BRANCH_NAME}" --quiet
 git push --set-upstream origin ${BRANCH_NAME} -f --quiet
