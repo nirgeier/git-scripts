@@ -16,18 +16,18 @@ DB_IP_PROD=10.10.10.10
 echo -e ""
 echo -e "Pre-defined values:"
 echo -e "------------------------------------------------"
-echo -e "${Yellow}DB_IP_PROD:\t${Green}${DB_IP_LOCAL}${Color_Off}"
-echo -e "${Yellow}DB_IP_PROD:\t${Green}${DB_IP_PROD}${Color_Off}"
+echo -e "${YELLOW}DB_IP_PROD:\t${GREEN}${DB_IP_LOCAL}${NO_COLOR}"
+echo -e "${YELLOW}DB_IP_PROD:\t${GREEN}${DB_IP_PROD}${NO_COLOR}"
 echo -e ""
 
-echo -e "${Cyan}* Creating\t demo repository${Color_Off}"
+echo -e "${CYAN}* Creating\t demo repository${NO_COLOR}"
 ### Create the demo repository
 rm -rf      /tmp/demo_smudge
 mkdir -p    /tmp/demo_smudge
 cd          /tmp/demo_smudge
 
 # Generate the .env file
-echo -e "${Cyan}* Initializing\t .env file${Color_Off}"
+echo -e "${CYAN}* Initializing\t .env file${NO_COLOR}"
 cat << EOF >> .env
 ## Database
 ##  * Local:      <Any Value>
@@ -43,14 +43,14 @@ EOF
 echo -e ""
 echo -e "Current .env file content"
 echo -e "------------------------------------------------"
-echo -e "${Green}"
+echo -e "${GREEN}"
 cat .env
-echo -e "${Color_Off}"
+echo -e "${NO_COLOR}"
 echo -e "------------------------------------------------"
 echo -e ""
 
 ### Init the empty repository
-echo -e "${Cyan}* Initializing demo repository${Color_Off}"
+echo -e "${CYAN}* Initializing demo repository${NO_COLOR}"
 
 ## Init git repo
 git init --quiet
@@ -58,19 +58,19 @@ git init --quiet
 git remote add origin git@github.com:nirgeier/demo-git-smudge-clean.git
 
 # Add all files
-echo -e "${Cyan}* Adding content to demo repository${Color_Off}"
+echo -e "${CYAN}* Adding content to demo repository${NO_COLOR}"
 git add .
 
 # Commit changes
-echo -e "${Cyan}* Commiting content to demo repository${Color_Off}"
+echo -e "${CYAN}* Commiting content to demo repository${NO_COLOR}"
 git commit -m"Initial Commit without smudge-clean" --quiet
 
-echo -e "${Cyan}* Pushing content to demo repository${Color_Off}"
-echo -e "${Yellow}git@github.com:nirgeier/demo-git-smudge-clean.git${Color_Off}"
+echo -e "${CYAN}* Pushing content to demo repository${NO_COLOR}"
+echo -e "${YELLOW}git@github.com:nirgeier/demo-git-smudge-clean.git${NO_COLOR}"
 
 git push --set-upstream origin main -f --quiet
 
-echo -e "${Red}>>> Press any key to continue${Color_Off}"
+echo -e "${RED}>>> Press any key to continue${NO_COLOR}"
 
 # Wait for user input to continue (max timeout 600 seconds)
 read -t 600 -n 1
@@ -78,33 +78,33 @@ read -t 600 -n 1
 ### MacOS users should use gsed instead of sed
 
 # Clean is applied when we add file to stage
-echo -e "${Cyan}* Define clean filter${Color_Off}"
+echo -e "${CYAN}* Define clean filter${NO_COLOR}"
 git config --local filter.cleanLocalhost.clean  "gsed -e 's/database.ip=.*/database.ip=${DB_IP_PROD}/g'"
 
 # Smudge is applied when we checkout file
-echo -e "${Cyan}* Define smudge filter${Color_Off}"
+echo -e "${CYAN}* Define smudge filter${NO_COLOR}"
 git config --local filter.cleanLocalhost.smudge "gsed -e 's/database.ip=*/database.ip=${DB_IP_LOCAL}/g'"
 
 ###  Define the filters 
-echo -e "${Cyan}* Adding filters (smudge-clean) to demo repository${Color_Off}"
+echo -e "${CYAN}* Adding filters (smudge-clean) to demo repository${NO_COLOR}"
 echo '.env text eol=lf filter=cleanLocalhost' > .gitattributes
 
 ### Commit the file again after we set up the filter
-echo -e "${Cyan}* Adding second commit${Color_Off}"
+echo -e "${CYAN}* Adding second commit${NO_COLOR}"
 echo 'Second Commit' >> README.md
 
-echo -e "${Cyan}* Adding the same file (.env)${Color_Off}"
+echo -e "${CYAN}* Adding the same file (.env)${NO_COLOR}"
 git add .
 
-echo -e "${Cyan}* View the diff (.env)${Color_Off}"
+echo -e "${CYAN}* View the diff (.env)${NO_COLOR}"
 echo -e "------------------------------------------------"
 git --no-pager diff --cached .env
 echo -e "------------------------------------------------"
 
-echo -e "${Cyan}* Commit changes${Color_Off}"
+echo -e "${CYAN}* Commit changes${NO_COLOR}"
 
 git commit -m"Second commit with smudge-clean" --quiet
-echo -e "${Cyan}* Pushing second commit to git${Color_Off}"
+echo -e "${CYAN}* Pushing second commit to git${NO_COLOR}"
 git push --set-upstream origin main --quiet
 
 echo -e ""

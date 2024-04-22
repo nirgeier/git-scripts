@@ -12,7 +12,7 @@ source ../../_utils/colors.sh
 grep "Here is the bug" random1.txt
 
 if [ "$?" -eq "0" ]; then
-    echo -e "${Green}Text found.${Color_Off}"
+    echo -e "${GREEN}Text found.${NO_COLOR}"
     exit 1
 else
     #echo "Text not found."
