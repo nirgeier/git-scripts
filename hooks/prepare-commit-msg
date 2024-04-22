@@ -1,36 +1,29 @@
 #!/bin/sh
 
-##
+FILE_NAME="secret.txt"
+
+# Output colors
+RED='\033[0;31m';
+GREEN='\033[0;32m';
+YELLOW='\033[0;33m';
+NO_COLOR='\033[0;m';
+
 ##
 ## Author: Nir Geier nir.geier@gmail.com
 ##
-##
-
-# Check to see if this is the first commit in the repository or not
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
-    # We compare our changes against the prevoius commit
-	against=HEAD^
-else
-	# Initial commit: diff against an empty tree object
-	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
-fi
 
 # Redirect output to screen.
 exec 1>&2
 
-# Check to see if we have updated the bower.json file
-#if [ $(git diff-tree -r --name-only $against | grep * ) ];
-#then
 
-    # Output colors
-	red='\033[0;31m';
-	green='\033[0;32m';
-	yellow='\033[0;33m';
-	default='\033[0;m';
-	
+# Check to see if we have updated the secret.txt file
+if [ $(git diff --cached --name-only --diff-filter=ACM | grep $FILE_NAME ) ];
+then
+	echo "${RED}---------------------------------------------------------------- ${NO_COLOR}"
+	echo "${RED}$FILE_NAME Found in commit !!! - commit aborted ${NO_COLOR}"
+
 	# personal touch :-)
-	echo "${red}"
+	echo "${YELLOW}"
 	echo "                                         "
 	echo "                   |ZZzzz                "
 	echo "                   |                     "
@@ -48,10 +41,12 @@ exec 1>&2
 	echo "  |_______|------------------|_______|   "
 	echo "                                         "
 	echo "                                         "
-	echo "      ${green}You have just commited code ${red}   " 
-	echo "         Your code ${yellow}is bad.!!!  ${red} Do not ever commit again       "
-	echo "                                         "
-	echo "${no_color}"
-#fi;
+	echo "${GREEN}    You have just commited secret  " 
+	echo "${RED}    Do not ever commit again       "
+	echo "${NO_COLOR}"
+	echo "${RED}---------------------------------------------------------------- ${NO_COLOR}"
 
-exit 0;
+	exit 1;
+else
+	echo "${YELLOW}* $FILE_NAME Not Found in commit - commit allowed ${NO_COLOR}"
+fi

@@ -1,32 +1,32 @@
 #!/bin/bash
 
-Color_Off='\033[0m'       # Text Reset
+NO_COLOR='\033[0m'       # Text Reset
 Green='\033[0;32m'        # Green
-Yellow='\033[0;33m'       # Yellow
+YELLOW='\033[0;33m'       # YELLOW
 
 echo -e ""
 echo -e "------------------------------------------------"
-echo -e "${Yellow}* Executing merge script${Color_Off}"
+echo -e "${YELLOW}* Executing merge script${NO_COLOR}"
 echo ""
 
-echo -e "${Green}Ancestor: ${Color_Off}"
+echo -e "${GREEN}Ancestor: ${NO_COLOR}"
 cat $1
 echo -e "------------------------------------------------"
 
-echo -e "${Green}Current: ${Color_Off}"
+echo -e "${GREEN}Current: ${NO_COLOR}"
 cat $2
 echo -e "------------------------------------------------"
 
-echo -e "${Green}Other: ${Color_Off}"
+echo -e "${GREEN}Other: ${NO_COLOR}"
 cat $3
 echo -e "------------------------------------------------"
 
-echo -e "${Yellow}* Resolving conflict as you wish${Color_Off}"
-echo -e "${Yellow}  By assigninig the the desired resolution to [%A] ${Color_Off}"
+echo -e "${YELLOW}* Resolving conflict as you wish${NO_COLOR}"
+echo -e "${YELLOW}  By assigninig the the desired resolution to [%A] ${NO_COLOR}"
 echo "Resolved with this string" > $2 
-echo -e "${Yellow}* Conflict resolved!${Color_Off}"
+echo -e "${YELLOW}* Conflict resolved!${NO_COLOR}"
 
-echo -e "${Green}Resolution: ${Color_Off}"
+echo -e "${GREEN}Resolution: ${NO_COLOR}"
 cat $2
 echo -e "------------------------------------------------"
 
