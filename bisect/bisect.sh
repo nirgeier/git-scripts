@@ -3,7 +3,7 @@
 clear
 
 # Set the number of the desired commits
-NUMBER_OF_COMMITS=10
+NUMBER_OF_COMMITS=100
 
 cd "$(dirname "$0")"
 SCRIPT_DIR="$(pwd)"
