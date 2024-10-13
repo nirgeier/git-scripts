@@ -65,7 +65,7 @@ read -n 1
 echo -e "${YELLOW}* Merging (Conflict) ${NO_COLOR}"
 git checkout -q branchA > /dev/null
 git merge branchB
-git merge branchB
+
 
 echo -e "${RED}------------------------------------------------------------------------- ${NO_COLOR}"
 echo -e "${RED}Fix conflicts ${NO_COLOR}"
