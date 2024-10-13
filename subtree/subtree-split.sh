@@ -31,25 +31,25 @@ do
     git commit -m"Server - Commit #$((i+10))" 1> /dev/null
 done
 
-echo -e "${Green}Creating branch for split ${NO_COLOR}"
+echo -e "${GREEN}Creating branch for split ${NO_COLOR}"
 git checkout -b branch1
 
-echo -e "${Green}Split the content ${NO_COLOR}"
-echo -e "${Yellow}-----------------------------------"
+echo -e "${GREEN}Split the content ${NO_COLOR}"
+echo -e "${YELLOW}-----------------------------------"
 git subtree split -P client -b client_branch 
-echo -e "${Yellow}-----------------------------------"
+echo -e "${YELLOW}-----------------------------------"
 git subtree split -P server -b server_branch 
-echo -e "${Yellow}-----------------------------------"
+echo -e "${YELLOW}-----------------------------------"
 
-echo -e "${Yellow}List branches"
+echo -e "${YELLOW}List branches"
 git branch -a
 
-echo -e "${Yellow}-----------------------------------"
-echo -e "${Yellow}View Client branch content"
+echo -e "${YELLOW}-----------------------------------"
+echo -e "${YELLOW}View Client branch content"
 git log --oneline --graph --decorate client_branch
 
-echo -e "${Yellow}-----------------------------------"
-echo -e "${Yellow}View Server branch content"
+echo -e "${YELLOW}-----------------------------------"
+echo -e "${YELLOW}View Server branch content"
 git log --oneline --graph --decorate server_branch
 
 # echo -e "-----------------------------------"
