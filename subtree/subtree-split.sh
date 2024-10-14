@@ -1,23 +1,25 @@
 #!/bin/bash
 
+clear
+
+cd "$(dirname "$0")"
+SCRIPT_DIR="$(pwd)"
+
 # Load the colors script
 source ../_utils/colors.sh
+source ../_utils/utils.sh
 
-clear
-rm -rf      /tmp/subtree-split-demo
-mkdir -p    /tmp/subtree-split-demo
-cd          /tmp/subtree-split-demo
+# Create the repository with first 1000 commits
+generate_repository 1
 
-# Init git repo
-git init
-
-echo -e "${Green}Creating dummy git content ${Color_Off}"
+echo -e "${GREEN}* Creating dummy git content ${NO_COLOR}"
 
 # Create dummy content
 mkdir -p {client,server}
 
 # Create dummy commits in client folder
-for i in {10..19}
+echo -e "${GREEN}* Commiting to client & server folders ${NO_COLOR}"
+for i in {10..15}
 do
     # Commit to the client folder
     echo "Commit #: $i" >> ./client/file.txt
@@ -30,27 +32,41 @@ do
     git commit -m"Server - Commit #$((i+10))" 1> /dev/null
 done
 
-echo -e "${Green}Creating branch for split ${Color_Off}"
-git checkout -b branch1
-
-echo -e "${Green}Split the content ${Color_Off}"
-echo -e "${Yellow}-----------------------------------"
-git subtree split -P client -b client_branch 
-echo -e "${Yellow}-----------------------------------"
-git subtree split -P server -b server_branch 
-echo -e "${Yellow}-----------------------------------"
-
-echo -e "${Yellow}List branches"
+echo -e "${YELLOW}* List branches"
 git branch -a
 
-echo -e "${Yellow}-----------------------------------"
-echo -e "${Yellow}View Client branch content"
+echo -e "${YELLOW}* List commits"
+git log --oneline --graph --decorate
+
+echo -e "${RED}Press any key to continue..."
+read -n 1   
+
+# echo -e "${GREEN}* Creating branch for split ${NO_COLOR}"
+# git checkout -b branch1
+# echo -e ""
+
+
+echo -e "${GREEN}* Split the content [${YELLOW}client${GREEN}] to [${YELLOW}client_branch${GREEN}]${NO_COLOR}"
+echo -e "${YELLOW}-----------------------------------"
+git subtree split -P client -b client_branch 
+
+echo -e "${GREEN}* Split the content [${YELLOW}server${GREEN}] to [${YELLOW}server_branch${GREEN}]${NO_COLOR}"
+echo -e "${YELLOW}-----------------------------------"
+git subtree split -P server -b server_branch 
+echo -e "${YELLOW}-----------------------------------"
+
+echo -e "${YELLOW}* List branches"
+git branch -a
+
+echo -e ""
+echo -e "${RED}Press any key to continue..."
+read -n 1   
+
+echo -e "${YELLOW}------------------------------------------"
+echo -e "${YELLOW}* View Client branch content"
 git log --oneline --graph --decorate client_branch
 
-echo -e "${Yellow}-----------------------------------"
-echo -e "${Yellow}View Server branch content"
+echo -e "${YELLOW}------------------------------------------"
+echo -e "${YELLOW}* View Server branch content"
 git log --oneline --graph --decorate server_branch
 
-# echo -e "-----------------------------------"
-
-# git log --oneline --graph --decorate --all 
