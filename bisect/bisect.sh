@@ -8,6 +8,9 @@ NUMBER_OF_COMMITS=100
 cd "$(dirname "$0")"
 SCRIPT_DIR="$(pwd)"
 
+cd "$(dirname "$0")"
+SCRIPT_DIR="$(pwd)"
+
 # Load the colors script
 source ../_utils/colors.sh
 source ../_utils/utils.sh
